@@ -1,24 +1,23 @@
-JUDUL     : Kenapa Toko Oleh-Oleh Banyuwangi Perlu Website
-PERMALINK : kenapa-toko-oleh-oleh-banyuwangi-perlu-website
+JUDUL     : Kenapa Toko Oleh-Oleh Kota Batu Perlu Website
+PERMALINK : kenapa-toko-oleh-oleh-batu-perlu-website
 LABEL     : Website UMKM
-DESKRIPSI : Alasan toko oleh-oleh Banyuwangi perlu punya website sendiri: lebih mudah ditemukan, lebih dipercaya, dan pesanan masuk langsung ke WhatsApp.
-FILE      : artikel/kenapa-toko-oleh-oleh-banyuwangi-perlu-website.html
+DESKRIPSI : Alasan toko oleh-oleh apel & khas Kota Batu perlu punya website sendiri: lebih mudah ditemukan wisatawan, lebih dipercaya, dan pesanan masuk langsung ke WhatsApp.
+FILE      : blog/kenapa-toko-oleh-oleh-banyuwangi-perlu-website.html
 
 JUDUL     : Cara Muncul di Google Maps untuk Usaha Lokal
 PERMALINK : cara-muncul-di-google-maps-untuk-usaha-lokal
 LABEL     : SEO Lokal
-DESKRIPSI : Panduan singkat membuat profil usaha di Google Maps agar usaha lokal di Banyuwangi mudah ditemukan pelanggan sekitar.
-FILE      : artikel/cara-muncul-di-google-maps-untuk-usaha-lokal.html
+DESKRIPSI : Panduan singkat membuat profil usaha di Google Maps agar usaha lokal di Kota Batu mudah ditemukan wisatawan sekitar.
+FILE      : blog/cara-muncul-di-google-maps-untuk-usaha-lokal.html
 
 JUDUL     : Berapa Biaya Bikin Website UMKM? Ini Rinciannya
 PERMALINK : berapa-biaya-bikin-website-umkm
 LABEL     : Harga & Biaya
 DESKRIPSI : Rincian komponen biaya membuat website untuk UMKM: domain, hosting, desain, konten, dan perawatan, agar Anda bisa menyusun anggaran.
-FILE      : artikel/berapa-biaya-bikin-website-umkm.html
+FILE      : blog/berapa-biaya-bikin-website-umkm.html
 
 JUDUL     : Bahan yang Perlu Disiapkan Sebelum Bikin Website
 PERMALINK : bahan-yang-perlu-disiapkan-sebelum-bikin-website
 LABEL     : Persiapan
 DESKRIPSI : Daftar bahan yang perlu disiapkan pemilik UMKM sebelum membuat website agar proses pengerjaan cepat dan hasilnya maksimal.
-FILE      : artikel/bahan-yang-perlu-disiapkan-sebelum-bikin-website.html
-
+FILE      : blog/bahan-yang-perlu-disiapkan-sebelum-bikin-website.html

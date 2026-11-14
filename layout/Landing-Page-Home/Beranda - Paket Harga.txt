@@ -1,1 +1,28 @@
-<section class="bw bw-sec cr"><div class="bw-wrap"><div class="bw-split"><div class="bw-rv"><span class="bw-eyebrow">Paket &amp; Harga</span><h2 class="bw-h2">Harga bersahabat untuk kantong UMKM</h2><p class="bw-lead" style="margin:14px 0 26px">Paket jelas, bisa dicicil, dan bisa disesuaikan dengan anggaran Anda. Lihat rincian lengkap dan perbandingannya.</p><a class="bw-btn bw-or" href="/p/paket.html">Lihat Paket &amp; Harga <i class="bi bi-arrow-right"></i></a></div><div class="bw-panel bw-rv"><ul class="bw-ul"><li style="display:flex;justify-content:space-between;gap:14px"><span><b>Rintisan</b><br /><small style="color:var(--mu)">Profil sederhana, 3 halaman</small></span><b style="color:var(--n);white-space:nowrap">Rp 1,2 jt</b></li><li style="display:flex;justify-content:space-between;gap:14px"><span><b>Bisnis</b><br /><small style="color:var(--mu)">Profil lengkap + SEO lokal</small></span><b style="color:var(--n);white-space:nowrap">Rp 2,5 jt</b></li><li style="display:flex;justify-content:space-between;gap:14px"><span><b>Toko &amp; Katalog</b><br /><small style="color:var(--mu)">Produk + pesan via WhatsApp</small></span><b style="color:var(--n);white-space:nowrap">Rp 4,5 jt</b></li></ul><p style="font-size:13px;color:var(--mu);margin-top:14px">*Harga mulai dari, belum termasuk domain &amp; hosting.</p></div></div></div></section>
+<section class="bw bw-sec cr"><div class="bw-wrap"><div class="bw-split"><div class="bw-rv"><span class="bw-eyebrow">Paket &amp; Harga</span><h2 class="bw-h2">Harga bersahabat untuk kantong UMKM</h2><p class="bw-lead" style="margin:14px 0 26px">Paket jelas, bisa dicicil, dan bisa disesuaikan dengan anggaran Anda. Lihat rincian lengkap dan perbandingannya.</p><a class="bw-btn bw-or" href="/p/paket.html">Lihat Paket &amp; Harga <i class="bi bi-arrow-right"></i></a></div><div class="bw-panel bw-rv"><ul class="bw-ul" id="bw-home-paket-list"><li style="display:flex;justify-content:space-between;gap:14px"><span><b>Rintisan</b><br /><small style="color:var(--mu)">Profil sederhana, 3 halaman</small></span><b style="color:var(--n);white-space:nowrap">Rp 1,2 jt</b></li><li style="display:flex;justify-content:space-between;gap:14px"><span><b>Bisnis</b><br /><small style="color:var(--mu)">Profil lengkap + SEO lokal</small></span><b style="color:var(--n);white-space:nowrap">Rp 2,5 jt</b></li><li style="display:flex;justify-content:space-between;gap:14px"><span><b>Toko &amp; Katalog</b><br /><small style="color:var(--mu)">Produk + pesan via WhatsApp</small></span><b style="color:var(--n);white-space:nowrap">Rp 4,5 jt</b></li></ul><p style="font-size:13px;color:var(--mu);margin-top:14px">*Harga mulai dari, belum termasuk domain &amp; hosting.</p></div></div></div></section>
+<script>
+(function() {
+  function updateHomePrices() {
+    try {
+      var s = localStorage.getItem('bw_firebase_config');
+      var cfg = s ? JSON.parse(s) : null;
+      if (!cfg || !cfg.apiKey || cfg.apiKey === "ISI_DENGAN_API_KEY_ANDA") return;
+      if (typeof firebase === 'undefined') return;
+      if (!firebase.apps.length) firebase.initializeApp(cfg);
+      var db = firebase.firestore();
+      var ul = document.getElementById("bw-home-paket-list");
+      if (!db || !ul) return;
+      db.collection("paket_harga").orderBy("urutan", "asc").onSnapshot(function(snap) {
+        if (snap.empty) return;
+        var html = "";
+        snap.forEach(function(doc) {
+          var d = doc.data();
+          var desc = d.deskripsi ? String(d.deskripsi).substring(0, 40) + '...' : '';
+          html += '<li style="display:flex;justify-content:space-between;gap:14px"><span><b>' + String(d.nama||'') + '</b><br /><small style="color:var(--mu)">' + desc + '</small></span><b style="color:var(--n);white-space:nowrap">' + String(d.harga||'') + '</b></li>';
+        });
+        if (html) ul.innerHTML = html;
+      });
+    } catch(e) {}
+  }
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', updateHomePrices); } else { updateHomePrices(); }
+})();
+</script>

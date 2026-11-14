@@ -1,202 +1,211 @@
-# Alur Pengerjaan: Integrasi Firebase & Halaman Admin ke Blogger (BanyuWeb)
+# Panduan Lengkap: Integrasi Firebase & Halaman Admin ke Blogger (Jasa Buat Website Batu)
 
-Dokumen ini memuat panduan komprehensif langkah demi langkah (*roadmap & step-by-step implementation*) untuk mengkoneksikan website Blogger **BanyuWeb** ke database **Google Firebase (Cloud Firestore & Authentication)**, serta membangun halaman admin untuk mengelola layanan dan paket harga secara dinamis.
+Dokumen ini memuat panduan lengkap dari awal hingga akhir (*step-by-step tutorial*) untuk menghubungkan website Blogger **Jasa Buat Website Batu (jasabuatwebsitebatu)** ke database **Google Firebase (Cloud Firestore & Authentication)**, serta cara mengoperasikan halaman admin untuk mengelola layanan dan paket harga.
 
 ---
 
-## 1. Gambaran Arsitektur Sistem
+## 1. Arsitektur & Cara Kerja Sistem
 
 ```mermaid
 flowchart TD
-    subgraph Google Firebase
-        AUTH["Firebase Authentication\n(Akun Admin: Email & Password)"]
+    subgraph Google Firebase Cloud
+        AUTH["Firebase Authentication\n(Email & Password Admin)"]
         DB[("Cloud Firestore\n- Koleksi: paket_harga\n- Koleksi: layanan")]
-        RULES["Firestore Security Rules\n(Read: Publik, Write: Admin)"]
+        RULES["Firestore Security Rules\n(Read: Publik, Write: Admin Login)"]
         DB --- RULES
     end
 
-    subgraph Blogger Frontend
-        ADMIN["Halaman Admin (/p/admin.html)\n- Form Login Admin\n- Form Tambah / Edit / Hapus Data"]
-        PAGE_HARGA["Halaman Paket (/p/paket.html)\n- Render Kartu Harga Dinamis"]
-        PAGE_LAYANAN["Halaman Layanan (/p/layanan.html)\n- Render Layanan Dinamis"]
+    subgraph Blogger / Web Browser
+        ADMIN["Halaman Admin (admin.html / /p/admin.html)\n- Layar Login Admin\n- Tombol 'Muat Data Awal (Seed)'\n- Form Tambah / Edit / Hapus"]
+        PAGE_HARGA["Halaman Paket (harga.html / /p/paket.html)\n- Render Real-time dari Firestore\n- Fallback otomatis jika offline"]
+        PAGE_LAYANAN["Halaman Layanan (layanan.html / /p/layanan.html)\n- Render Real-time dari Firestore\n- Fallback otomatis jika offline"]
         HOME_WIDGET["Widget Beranda (Layout)\n- Paket Harga & Layanan Populer"]
     end
 
-    ADMIN -- "1. Login & Verifikasi" --> AUTH
+    ADMIN -- "1. Login Admin" --> AUTH
     ADMIN -- "2. Tambah / Edit / Hapus (Write)" --> DB
-    DB -- "3. Ambil Data Real-time (Read)" --> PAGE_HARGA
-    DB -- "3. Ambil Data Real-time (Read)" --> PAGE_LAYANAN
-    DB -- "3. Ambil Data Real-time (Read)" --> HOME_WIDGET
+    DB -. "3. Real-time Sync (Read)" .-> PAGE_HARGA
+    DB -. "3. Real-time Sync (Read)" .-> PAGE_LAYANAN
+    DB -. "3. Real-time Sync (Read)" .-> HOME_WIDGET
 ```
 
 ---
 
-## 2. Rincian Tahapan Pengerjaan
+## 2. Alur Pembuatan & Setup Firebase (Langkah Demi Langkah)
 
-### Tahap 1: Setup Google Firebase (Gratis / Spark Plan)
-*Perkiraan Waktu: 15 - 20 Menit*
+### Langkah 1: Buat Proyek Firebase Baru
+1. Kunjungi **[Firebase Console](https://console.firebase.google.com/)** dan login dengan akun Google Anda.
+2. Klik **Add project** (Tambah proyek).
+3. Beri nama proyek, misalnya: `jasabuatwebsitebatu`.
+4. Pada bagian *Google Analytics*, Anda bisa memilih menonaktifkannya (atau aktifkan jika ingin analitik lanjutan).
+5. Klik **Create project** dan tunggu proses pembuatan selesai (sekitar 10–20 detik).
 
-1. **Buat Project Firebase**:
-   - Buka [Firebase Console](https://console.firebase.google.com/).
-   - Klik **Add Project**, beri nama misal `banyuweb-umkm`.
-   - Google Analytics bersifat opsional (bisa diaktifkan atau dinonaktifkan).
-2. **Setup Authentication**:
-   - Masuk ke menu **Build > Authentication** > klik **Get Started**.
-   - Pilih tab **Sign-in method**, aktifkan **Email/Password**.
-   - Masuk ke tab **Users**, klik **Add user** untuk membuat akun admin (masukkan email dan password rahasia Anda).
-3. **Setup Database (Cloud Firestore)**:
-   - Masuk ke menu **Build > Firestore Database** > klik **Create Database**.
-   - Pilih lokasi database terdekat (misal `asia-southeast2` Jakarta atau `asia-southeast1` Singapura).
-   - Pilih mode awal: **Start in production mode**.
-4. **Atur Firestore Security Rules**:
-   - Buka tab **Rules** pada Firestore, ganti isinya menjadi:
-     ```javascript
-     rules_version = '2';
-     service cloud.firestore {
-       match /databases/{database}/documents {
-         // Data paket harga & layanan: publik bisa membaca, hanya admin login yang bisa mengubah
-         match /paket_harga/{document=**} {
-           allow read: if true;
-           allow write: if request.auth != null;
-         }
-         match /layanan/{document=**} {
-           allow read: if true;
-           allow write: if request.auth != null;
-         }
+---
+
+### Langkah 2: Aktifkan Login Admin (Authentication)
+1. Di sidebar kiri Firebase Console, klik menu **Build > Authentication**.
+2. Klik tombol **Get Started**.
+3. Di tab **Sign-in method**, pilih penyedia **Email/Password**.
+4. Aktifkan toggle **Email/Password** (biarkan *Email link (passwordless sign-in)* nonaktif), lalu klik **Save**.
+5. Pindah ke tab **Users**, lalu klik **Add user**:
+   - Masukkan **Email Admin** (misal: `admin@jasabuatwebsitebatu.com`).
+   - Masukkan **Password Admin** yang aman (minimal 6 karakter).
+   - Klik **Add user**. *(Kredensial inilah yang nantinya digunakan untuk login di Halaman Admin)*.
+
+---
+
+### Langkah 3: Aktifkan Database (Cloud Firestore)
+1. Di sidebar kiri, klik menu **Build > Firestore Database**.
+2. Klik tombol **Create database**.
+3. **Database location**: Pilih lokasi server terdekat dengan audiens Indonesia:
+   - Rekomendasi: `asia-southeast2` (Jakarta) atau `asia-southeast1` (Singapura).
+4. **Secure rules for Cloud Firestore**:
+   - Pilih **Start in production mode** lalu klik **Next** > **Enable**.
+5. Tunggu database siap dibuat.
+
+---
+
+### Langkah 4: Pasang Firestore Security Rules (Sangat Penting!)
+Keamanan data diatur melalui Security Rules agar pengunjung umum hanya bisa **membaca** data harga/layanan, dan **hanya Anda (admin yang sudah login)** yang berhak menambah, mengubah, atau menghapus data:
+
+1. Di halaman Cloud Firestore, klik tab **Rules** (Aturan).
+2. Ganti seluruh isi aturan dengan kode berikut:
+   ```javascript
+   rules_version = '2';
+   service cloud.firestore {
+     match /databases/{database}/documents {
+       // Siapa saja boleh melihat paket harga dan layanan
+       // Hanya akun yang sudah login melalui Firebase Auth yang boleh menulis/mengedit
+       match /paket_harga/{document=**} {
+         allow read: if true;
+         allow write: if request.auth != null;
+       }
+       match /layanan/{document=**} {
+         allow read: if true;
+         allow write: if request.auth != null;
        }
      }
-     ```
-   - Klik **Publish**.
-5. **Dapatkan Firebase Config (Kredensial Web)**:
-   - Masuk ke **Project Settings** (ikon gerigi di kiri atas).
-   - Scroll ke bawah ke bagian **Your apps**, klik ikon Web (`</>`).
-   - Daftarkan nama aplikasi (misal `BanyuWeb Portal`).
-   - Simpan kode konfigurasi `firebaseConfig`:
-     ```javascript
-     const firebaseConfig = {
-       apiKey: "AIzaSy...",
-       authDomain: "banyuweb-umkm.firebaseapp.com",
-       projectId: "banyuweb-umkm",
-       storageBucket: "banyuweb-umkm.appspot.com",
-       messagingSenderId: "...",
-       appId: "..."
-     };
-     ```
+   }
+   ```
+3. Klik tombol **Publish** (Terbitkan).
 
 ---
 
-### Tahap 2: Perancangan Struktur Data (Skema Database)
-
-Ada 2 koleksi utama yang akan disimpan di Firestore:
-
-#### 1. Koleksi: `paket_harga`
-Setiap dokumen mewakili satu paket di halaman `/p/paket.html` dan widget Beranda:
-| Field | Tipe Data | Keterangan / Contoh |
-|---|---|---|
-| `nama` | string | `"Paket Bisnis"` |
-| `harga` | string | `"Rp 2,5 jt"` |
-| `subtext` | string | `"mulai dari"` / `"sekali bayar"` |
-| `deskripsi` | string | `"Paling pas untuk usaha yang ingin dipercaya & ramai dicari."` |
-| `fitur` | array of string | `["Website hingga 6 halaman", "SEO lokal Banyuwangi", "Setup Google Bisnis"]` |
-| `fiturMinus` | array of string | `["Opsi fitur yang belum termasuk"]` |
-| `isPopular` | boolean | `true` (jika ingin diberi badge "PALING DIMINATI") |
-| `urutan` | number | `1`, `2`, `3` (menentukan posisi urutan tampil) |
-| `textWa` | string | Pesan template saat tombol WhatsApp diklik |
-
-#### 2. Koleksi: `layanan`
-Setiap dokumen mewakili satu jenis layanan di halaman `/p/layanan.html` dan widget Beranda:
-| Field | Tipe Data | Keterangan / Contoh |
-|---|---|---|
-| `nama` | string | `"Website Profil Usaha"` |
-| `slugId` | string | `"profil-usaha"` (untuk anchor link `#profil-usaha`) |
-| `lead` | string | `"Etalase digital usaha Anda: siapa Anda, apa yang dijual..."` |
-| `icon` | string | `"bi-window-sidebar"` (kelas Bootstrap Icon) |
-| `fitur` | array of string | `["Beranda, Tentang, Layanan, Galeri", "Peta Google Maps"]` |
-| `tags` | array of string | `["Homestay", "Bengkel", "Laundry", "Salon"]` |
-| `urutan` | number | `1`, `2`, `3`, `4` |
+### Langkah 5: Daftarkan Aplikasi Web & Ambil Konfigurasi
+1. Klik ikon gerigi **Project Settings** (di samping menu *Project Overview* di kiri atas).
+2. Scroll ke bagian bawah ke bagian **Your apps**.
+3. Klik ikon Web (`</>`).
+4. Masukkan nama aplikasi (misal `Jasa Buat Website Batu`), jangan centang Firebase Hosting untuk saat ini, lalu klik **Register app**.
+5. Salin blok objek `firebaseConfig`:
+   ```javascript
+   const firebaseConfig = {
+     apiKey: "AIzaSy...",
+     authDomain: "jasabuatwebsitebatu.firebaseapp.com",
+     projectId: "jasabuatwebsitebatu",
+     storageBucket: "jasabuatwebsitebatu.appspot.com",
+     messagingSenderId: "1234567890",
+     appId: "1:1234567890:web:abcdef..."
+   };
+   ```
 
 ---
 
-### Tahap 3: Pembuatan Halaman Admin Dashboard (`admin.html`)
+## 3. Cara Menghubungkan Konfigurasi ke Website
 
-Halaman admin dibuat dalam satu file mandiri (`admin.html`) yang nantinya di-upload ke Blogger sebagai **Laman Baru** dengan URL `/p/admin.html`.
+Ada 2 cara yang sangat mudah untuk memasukkan konfigurasi Firebase:
 
-#### Fitur-Fitur Halaman Admin:
-1. **Layar Login (Auth Gate)**:
-   - Jika admin belum login, hanya form email dan password yang muncul.
-   - Menghubungkan ke `firebase.auth().signInWithEmailAndPassword(email, password)`.
-2. **Manajemen Paket Harga (CRUD)**:
-   - **Tabel Daftar Paket**: Menampilkan nama paket, harga, badge populer, dan tombol aksi (Edit & Hapus).
-   - **Form Input / Edit**:
-     - Input Nama Paket, Harga, Subtext, Deskripsi.
-     - Input Fitur (input multi-baris atau tag).
-     - Checkbox "Tandai sebagai Paket Paling Diminati".
-     - Urutan tampil.
-3. **Manajemen Layanan (CRUD)**:
-   - Menampilkan daftar layanan aktif.
-   - Form tambah / edit rincian layanan, icon Bootstrap, dan tags kategori.
-4. **Keamanan Halaman**:
-   - Tombol **Logout** yang membersihkan sesi.
-   - Laman ini **tidak dimasukkan** ke menu navigasi Navbar Blogger.
+### Cara A: Melalui Menu Pengaturan di Halaman Admin (Paling Praktis)
+1. Buka file `admin.html` langsung di browser Anda (cukup klik ganda file `admin.html`).
+2. Masuk ke tab **Pengaturan Firebase**.
+3. Salin nilai `apiKey`, `projectId`, `authDomain`, dll. ke dalam kolom form yang disediakan.
+4. Klik **Simpan Konfigurasi**. Pengaturan akan otomatis tersimpan di browser Anda!
 
----
-
-### Tahap 4: Modifikasi Halaman Publik Blogger
-
-#### 1. File `harga.html` (Laman `/p/paket.html`)
-- Mengganti daftar kartu harga hardcoded dengan elemen kontainer:
-  ```html
-  <div id="daftar-paket-harga" class="bw-grid g3" style="align-items:stretch">
-    <!-- Konten otomatis di-render oleh script Firebase -->
-  </div>
-  ```
-- Menambahkan skrip pembaca Firestore yang me-looping koleksi `paket_harga` dan mencetak HTML dengan class CSS bawaan BanyuWeb (`bw-card bw-price`, `bw-amt`, `bw-ul`, dll.).
-
-#### 2. File `layanan.html` (Laman `/p/layanan.html`)
-- Menyediakan kontainer dinamis untuk memuat blok layanan.
-- Mengambil data dari koleksi `layanan` di Firestore dan merender sesuai grid layout BanyuWeb.
+### Cara B: Mengisi File `firebase-config.js`
+Buka file `firebase-config.js` di editor teks, lalu ganti nilai `BW_DEFAULT_CONFIG` dengan konfigurasi asli dari Firebase Console Anda:
+```javascript
+const BW_DEFAULT_CONFIG = {
+  apiKey: "AIzaSy... (API Key Asli)",
+  authDomain: "jasabuatwebsitebatu.firebaseapp.com",
+  projectId: "jasabuatwebsitebatu",
+  storageBucket: "jasabuatwebsitebatu.appspot.com",
+  messagingSenderId: "...",
+  appId: "..."
+};
+```
 
 ---
 
-### Tahap 5: Sinkronisasi ke Widget Beranda (Homepage)
+## 4. Cara Menggunakan Halaman Admin (`admin.html`)
 
-Beranda Blogger memuat cuplikan harga dan layanan melalui widget layout:
-- `layout/Landing-Page-Home/Beranda - Paket Harga.txt`
-- `layout/Landing-Page-Home/Beranda - Layanan.txt`
+Halaman Admin dirancang dengan tampilan elegan yang sama persis dengan tema Jasa Buat Website Batu (`Plus Jakarta Sans`, `Poppins`, Bootstrap Icons, palet oranye & navy):
 
-**Strategi:**
-1. Widget Beranda disesuaikan agar membaca langsung dari Firestore atau menampilkan data default yang otomatis ter-update jika data di database berubah.
-2. Dengan begitu, sekali Anda mengganti harga di Admin Dashboard, **halaman Beranda dan halaman Paket Harga langsung berubah secara bersamaan**.
+### 1. Membuka & Login
+* Buka `admin.html` di browser Anda atau kunjungi halaman Blogger Anda di `/p/admin.html`.
+* Masukkan email dan password admin yang telah dibuat pada **Langkah 2**.
+* Klik **Masuk ke Dashboard**.
 
----
+### 2. Mengisi Data Awal dengan 1 Klik ("Seed Data")
+* Saat pertama kali database Firestore dibuat, koleksi `paket_harga` dan `layanan` masih kosong.
+* Cukup klik tombol **"Muat Data Awal (Seed)"** di kanan atas dashboard.
+* Sistem akan secara otomatis memasukkan:
+  - **3 Paket Harga Bawaan**: *Rintisan*, *Bisnis* (badge Paling Diminati), dan *Toko & Katalog*.
+  - **4 Layanan Bawaan**: *Website Profil Usaha*, *Katalog & Toko*, *Landing Page*, dan *Redesain Website Lama*.
 
-### Tahap 6: Pengujian & Verifikasi (Testing & QA)
+### 3. Mengelola Paket Harga
+* **Tambah Paket Baru**: Klik tombol **Tambah Paket**, isi nama paket, nominal harga (misal `Rp 3 jt`), keterangan (`mulai dari`), deskripsi singkat, rincian fitur (tulis 1 baris per fitur), dan centang pilihan *Tandai PALING DIMINATI* jika ingin di-highlight oranye.
+* **Edit Paket**: Klik tombol **Edit** pada kartu paket yang ingin diubah harganya.
+* **Hapus Paket**: Klik tombol ikon tempat sampah berwarna merah.
 
-| Skenario Pengujian | Hasil yang Diharapkan |
-|---|---|
-| Login Admin dengan password salah | Muncul pesan error, form dashboard tidak terbuka |
-| Login Admin dengan akun terdaftar | Berhasil masuk ke dashboard pengelola |
-| Tambah paket harga baru di admin | Paket baru langsung muncul di `/p/paket.html` |
-| Ubah nominal harga paket yang sudah ada | Harga di halaman paket langsung ter-update |
-| Centang status "Paling Diminati" | Kartu paket mendapatkan highlight warna oranye & badge |
-| Hapus salah satu paket | Paket hilang dari tampilan publik |
-| Akses publik tanpa login mencoba menulis data | Ditolak oleh Firestore Security Rules (Permission Denied) |
-| Uji tampilan di Smartphone (Mobile Responsive) | Kartu dan form admin tetap rapi di layar kecil |
-
----
-
-## 3. Checklist Eksekusi Mandiri
-
-- [ ] **Langkah 1**: Buat proyek Firebase & aktifkan Auth (Email/Password) serta Firestore.
-- [ ] **Langkah 2**: Terapkan Firestore Security Rules untuk proteksi akses data.
-- [ ] **Langkah 3**: Simpan kredensial `firebaseConfig`.
-- [ ] **Langkah 4**: Buat file `admin.html` lalu pasang di Laman Blogger (`/p/admin.html`).
-- [ ] **Langkah 5**: Sesuaikan `harga.html` agar menarik data dari Firestore.
-- [ ] **Langkah 6**: Sesuaikan `layanan.html` agar menarik data dari Firestore.
-- [ ] **Langkah 7**: Update widget tata letak Beranda di Blogger Layout.
-- [ ] **Langkah 8**: Lakukan uji coba input dan perubahan data.
+### 4. Mengelola Layanan
+* Pindah ke tab **Layanan UMKM**.
+* Anda dapat menambah layanan baru, mengatur icon Bootstrap, mengubah deskripsi, mengedit fitur, dan memasukkan contoh usaha/kategori tag (misal: *Homestay, Bengkel, Kuliner*).
 
 ---
 
-*Catatan Keamanan: `apiKey` pada Firebase Web SDK aman diletakkan di frontend HTML karena keamanan data sepenuhnya dikendalikan oleh Firestore Security Rules yang telah dikonfigurasi di Tahap 1.*
+## 5. Cara Memasang ke Blogger
 
+### 1. Pasang Halaman Admin (`/p/admin.html`)
+1. Buka dashboard **Blogger > Laman**.
+2. Klik **Laman Baru**.
+3. Beri judul laman: `Admin`.
+4. Ubah mode editor ke **Tampilan HTML** (klik ikon pensil di kiri atas lalu pilih ikon `<>` HTML).
+5. Salin seluruh isi file `admin.html` dan tempelkan ke editor Blogger.
+6. Pada setelan laman di sebelah kanan:
+   - Komentar pembaca: **Jangan izinkan, sembunyikan yang ada**.
+7. Klik **Publikasikan**.
+8. URL yang terbentuk adalah: `https://namabloganda.blogspot.com/p/admin.html`.
+   *(Catatan: Jangan tambahkan link halaman ini ke menu navbar publik agar aman dari jangkauan pengunjung biasa).*
+
+### 2. Perbarui Halaman Paket & Harga (`/p/paket.html`)
+1. Buka **Blogger > Laman**, edit laman **Paket**.
+2. Ubah ke mode **Tampilan HTML**.
+3. Salin seluruh isi file `harga.html` yang telah diperbarui dan simpan.
+4. Sekarang halaman paket harga sudah live terhubung ke Firebase!
+
+### 3. Perbarui Halaman Layanan (`/p/layanan.html`)
+1. Buka **Blogger > Laman**, edit laman **Layanan**.
+2. Ubah ke mode **Tampilan HTML**.
+3. Salin seluruh isi file `layanan.html` yang telah diperbarui dan simpan.
+
+### 4. Perbarui Widget Beranda (Tata Letak)
+1. Buka **Blogger > Tata Letak**.
+2. Edit widget HTML/JavaScript untuk **Paket Harga**, perbarui isinya dari file `layout/Landing-Page-Home/Beranda - Paket Harga.txt`.
+3. Edit widget HTML/JavaScript untuk **Layanan**, perbarui isinya dari file `layout/Landing-Page-Home/Beranda - Layanan.txt`.
+4. Simpan setelan tata letak.
+
+---
+
+## 6. Fitur Keunggulan & Keamanan
+
+1. **Fallback Otomatis (Zero Downtime)**:
+   Jika koneksi internet pengunjung sedang lambat atau Firebase sedang loading, halaman tidak akan kosong. Halaman otomatis menampilkan susunan harga bawaan sampai data real-time selesai ditarik.
+2. **Real-time Sync**:
+   Menggunakan `onSnapshot` Firestore, perubahan harga di halaman Admin langsung tampil di layar pengunjung tanpa perlu me-refresh halaman!
+3. **Biaya Rp 0 (Free Spark Plan)**:
+   Kapasitas gratis Firebase menyediakan:
+   - 50.000 pembacaan database per hari.
+   - 20.000 penulisan data per hari.
+   - 1 GB penyimpanan data.
+   Untuk website UMKM, kuota ini **100% gratis selamanya**.
+4. **Proteksi Hak Akses**:
+   Pengunjung biasa tidak dapat memodifikasi database karena setiap perintah tulis diverifikasi oleh *Firestore Security Rules* melalui token autentikasi admin.

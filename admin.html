@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard - BanyuWeb</title>
-  
+  <title>Admin Dashboard - Jasa Buat Website Batu</title>
+
   <!-- Font & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://icons.getbootstrap.com/assets/font/bootstrap-icons.min.css">
-  
+
   <style>
     :root {
       --n: #0b1d3a;
@@ -30,7 +33,12 @@
       --success-bg: #dcfce7;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: 'Poppins', system-ui, sans-serif;
       color: var(--ink);
@@ -41,14 +49,21 @@
       flex-direction: column;
     }
 
-    h1, h2, h3, h4, .bw-title {
+    h1,
+    h2,
+    h3,
+    h4,
+    .bw-title {
       font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif;
       font-weight: 800;
       color: var(--n);
       letter-spacing: -0.02em;
     }
 
-    a { text-decoration: none; color: inherit; }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
     /* Top Navbar */
     .admin-nav {
@@ -60,6 +75,7 @@
       z-index: 100;
       padding: 12px 24px;
     }
+
     .admin-nav-in {
       max-width: 1200px;
       margin: 0 auto;
@@ -68,6 +84,7 @@
       justify-content: space-between;
       gap: 16px;
     }
+
     .bw-logo {
       display: flex;
       align-items: center;
@@ -76,6 +93,7 @@
       font-size: 20px;
       color: var(--n);
     }
+
     .bw-logo-m {
       width: 40px;
       height: 40px;
@@ -87,6 +105,7 @@
       background: linear-gradient(135deg, var(--o), #ff9d3c 55%, var(--g));
       box-shadow: 0 4px 14px rgba(255, 122, 26, 0.35);
     }
+
     .bw-badge-admin {
       background: var(--n);
       color: #fff;
@@ -116,6 +135,7 @@
       box-shadow: 0 4px 20px rgba(11, 29, 58, 0.04);
       transition: transform 0.2s, box-shadow 0.2s;
     }
+
     .bw-card:hover {
       box-shadow: 0 8px 30px rgba(11, 29, 58, 0.08);
     }
@@ -134,52 +154,64 @@
       transition: all 0.2s ease;
       white-space: nowrap;
     }
+
     .bw-btn:hover {
       transform: translateY(-2px);
     }
+
     .bw-btn:active {
       transform: translateY(0);
     }
+
     .bw-btn:disabled {
       opacity: 0.6;
       cursor: not-allowed;
       transform: none !important;
     }
+
     .bw-btn.bw-or {
       background: var(--o);
       color: #fff !important;
       box-shadow: 0 6px 18px rgba(255, 122, 26, 0.28);
     }
+
     .bw-btn.bw-or:hover {
       background: #e86a0e;
     }
+
     .bw-btn.bw-wa {
       background: var(--wa);
       color: #fff !important;
       box-shadow: 0 6px 18px rgba(18, 140, 74, 0.28);
     }
+
     .bw-btn.bw-teal {
       background: var(--t);
       color: #fff !important;
       box-shadow: 0 6px 18px rgba(14, 143, 156, 0.28);
     }
+
     .bw-btn.bw-teal:hover {
       background: #0b737d;
     }
+
     .bw-btn.bw-line {
       border-color: var(--ln);
       background: #fff;
       color: var(--n) !important;
     }
+
     .bw-btn.bw-line:hover {
       border-color: var(--n);
       background: var(--n);
       color: #fff !important;
     }
+
     .bw-btn.bw-danger {
       background: var(--danger);
       color: #fff !important;
     }
+
     .bw-btn.bw-sm {
       padding: 8px 16px;
       font-size: 13px;
@@ -193,12 +225,14 @@
       margin: 0 0 6px;
       color: var(--n);
     }
+
     .bw-form .form-hint {
       font-size: 12px;
       color: var(--mu);
       margin-top: -4px;
       margin-bottom: 10px;
     }
+
     .bw-form input[type="text"],
     .bw-form input[type="email"],
     .bw-form input[type="password"],
@@ -216,6 +250,7 @@
       margin: 0 0 16px;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
+
     .bw-form input:focus,
     .bw-form select:focus,
     .bw-form textarea:focus {
@@ -223,10 +258,12 @@
       border-color: var(--o);
       box-shadow: 0 0 0 4px rgba(255, 122, 26, 0.15);
     }
+
     .bw-form textarea {
       min-height: 100px;
       resize: vertical;
     }
+
     .form-check {
       display: flex;
       align-items: center;
@@ -234,6 +271,7 @@
       margin-bottom: 16px;
       cursor: pointer;
     }
+
     .form-check input[type="checkbox"] {
       width: 18px;
       height: 18px;
@@ -251,21 +289,25 @@
       align-items: flex-start;
       gap: 12px;
     }
+
     .bw-alert.info {
       background: #eef6ff;
       border: 1px solid #c7dffd;
       color: #1e40af;
     }
+
     .bw-alert.warning {
       background: #fffbeb;
       border: 1px solid #fde68a;
       color: #92400e;
     }
+
     .bw-alert.error {
       background: var(--danger-bg);
       border: 1px solid #fecdd3;
       color: #9f1239;
     }
+
     .bw-alert.success {
       background: var(--success-bg);
       border: 1px solid #bbf7d0;
@@ -277,6 +319,7 @@
       max-width: 440px;
       margin: 60px auto;
     }
+
     .login-icon {
       width: 64px;
       height: 64px;
@@ -298,6 +341,7 @@
       margin-bottom: 28px;
       overflow-x: auto;
     }
+
     .admin-tab {
       padding: 12px 20px;
       font-weight: 600;
@@ -314,9 +358,11 @@
       transition: all 0.2s;
       white-space: nowrap;
     }
+
     .admin-tab:hover {
       color: var(--n);
     }
+
     .admin-tab.active {
       color: var(--o);
       border-bottom-color: var(--o);
@@ -329,6 +375,7 @@
       gap: 20px;
       margin-bottom: 30px;
     }
+
     .stat-card {
       background: #fff;
       border: 1px solid var(--ln);
@@ -338,6 +385,7 @@
       align-items: center;
       gap: 16px;
     }
+
     .stat-ico {
       width: 52px;
       height: 52px;
@@ -347,11 +395,13 @@
       font-size: 24px;
       color: #fff;
     }
+
     .stat-val {
       font: 800 26px 'Plus Jakarta Sans', sans-serif;
       color: var(--n);
       line-height: 1.1;
     }
+
     .stat-lbl {
       font-size: 13px;
       color: var(--mu);
@@ -364,6 +414,7 @@
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 24px;
     }
+
     .item-card {
       background: #fff;
       border: 1.5px solid var(--ln);
@@ -375,14 +426,17 @@
       justify-content: space-between;
       transition: all 0.2s;
     }
+
     .item-card:hover {
       border-color: #cbd5e1;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
     }
+
     .item-card.is-popular {
       border-color: var(--o);
       box-shadow: 0 10px 30px rgba(255, 122, 26, 0.12);
     }
+
     .badge-pop {
       position: absolute;
       top: -12px;
@@ -395,21 +449,25 @@
       border-radius: 99px;
       letter-spacing: 0.05em;
     }
+
     .item-price {
       font: 800 28px 'Plus Jakarta Sans', sans-serif;
       color: var(--n);
       margin: 10px 0 6px;
     }
+
     .item-price small {
       font: 500 13px 'Poppins', sans-serif;
       color: var(--mu);
     }
+
     .feature-list {
       list-style: none;
       margin: 16px 0;
       font-size: 13.5px;
       flex: 1;
     }
+
     .feature-list li {
       display: flex;
       align-items: flex-start;
@@ -417,23 +475,28 @@
       padding: 5px 0;
       border-bottom: 1px dashed var(--ln);
     }
+
     .feature-list li i {
       color: var(--wa);
       flex: none;
       margin-top: 2px;
     }
+
     .feature-list li.minus {
       color: #94a3b8;
     }
+
     .feature-list li.minus i {
       color: #cbd5e1;
     }
+
     .item-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
       margin: 12px 0;
     }
+
     .item-tag {
       font-size: 11.5px;
       font-weight: 600;
@@ -442,6 +505,7 @@
       background: #e0f2fe;
       color: #0369a1;
     }
+
     .card-actions {
       display: flex;
       gap: 10px;
@@ -453,7 +517,10 @@
     /* Modal */
     .bw-modal-backdrop {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       background: rgba(11, 29, 58, 0.6);
       backdrop-filter: blur(4px);
       z-index: 1000;
@@ -462,9 +529,11 @@
       padding: 20px;
       overflow-y: auto;
     }
+
     .bw-modal-backdrop.open {
       display: grid;
     }
+
     .bw-modal {
       background: #fff;
       border-radius: 20px;
@@ -476,6 +545,7 @@
       max-height: 90vh;
       overflow-y: auto;
     }
+
     .bw-modal-header {
       display: flex;
       justify-content: space-between;
@@ -484,6 +554,7 @@
       padding-bottom: 14px;
       border-bottom: 1px solid var(--ln);
     }
+
     .btn-close {
       background: none;
       border: none;
@@ -491,6 +562,7 @@
       color: var(--mu);
       cursor: pointer;
     }
+
     .btn-close:hover {
       color: var(--danger);
     }
@@ -505,6 +577,7 @@
       flex-direction: column;
       gap: 10px;
     }
+
     .toast {
       background: #fff;
       border: 1px solid var(--ln);
@@ -518,50 +591,51 @@
       font-weight: 500;
       animation: slideIn 0.3s ease;
     }
-    .toast.success { border-left: 5px solid var(--success); }
-    .toast.error { border-left: 5px solid var(--danger); }
+
+    .toast.success {
+      border-left: 5px solid var(--success);
+    }
+
+    .toast.error {
+      border-left: 5px solid var(--danger);
+    }
+
     @keyframes slideIn {
-      from { transform: translateX(100%); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
     }
 
     /* Responsive */
     @media (max-width: 768px) {
-      .admin-wrap { padding: 20px 14px 40px; }
-      .bw-card { padding: 20px; }
-      .admin-nav { padding: 10px 14px; }
-      .bw-logo-text { font-size: 16px; }
+      .admin-wrap {
+        padding: 20px 14px 40px;
+      }
+
+      .bw-card {
+        padding: 20px;
+      }
+
+      .admin-nav {
+        padding: 10px 14px;
+      }
+
+      .bw-logo-text {
+        font-size: 16px;
+      }
     }
   </style>
 </head>
+
 <body>
 
-  <!-- Top Navigation -->
-  <nav class="admin-nav">
-    <div class="admin-nav-in">
-      <div class="bw-logo">
-        <div class="bw-logo-m"><i class="bi bi-gear-wide-connected"></i></div>
-        <span class="bw-logo-text">BanyuWeb</span>
-        <span class="bw-badge-admin">Admin</span>
-      </div>
-      <div id="nav-user-area" style="display: none; align-items: center; gap: 14px;">
-        <span id="user-display" style="font-size: 13.5px; color: var(--mu);"><i class="bi bi-person-circle"></i> <span id="user-email">admin@banyuweb.id</span></span>
-        <button id="btn-logout" class="bw-btn bw-line bw-sm"><i class="bi bi-box-arrow-right"></i> Logout</button>
-      </div>
-    </div>
-  </nav>
-
   <main class="admin-wrap">
-
-    <!-- Status Alert if Config Placeholder -->
-    <div id="config-warning-banner" class="bw-alert warning" style="display: none;">
-      <i class="bi bi-exclamation-triangle-fill" style="font-size: 20px;"></i>
-      <div style="flex: 1;">
-        <b>Kredensial Firebase Belum Terhubung!</b>
-        <p style="margin-top: 4px; font-size: 13px;">Proyek Firebase belum terkonfigurasi atau API Key masih placeholder. Silakan buka tab <b>Pengaturan Firebase</b> untuk mengisi konfigurasi dari Firebase Console.</p>
-      </div>
-      <button onclick="switchTab('tab-config')" class="bw-btn bw-or bw-sm">Isi Config</button>
-    </div>
 
     <!-- ============================================== -->
     <!-- VIEW 1: LOGIN SCREEN (Jika Belum Terautentikasi) -->
@@ -569,8 +643,9 @@
     <section id="view-login" class="login-box">
       <div class="bw-card">
         <div class="login-icon"><i class="bi bi-shield-lock-fill"></i></div>
-        <h2 style="text-align: center; font-size: 22px; margin-bottom: 6px;">Login Admin BanyuWeb</h2>
-        <p style="text-align: center; color: var(--mu); font-size: 14px; margin-bottom: 24px;">Masuk untuk mengelola layanan &amp; paket harga</p>
+        <h2 style="text-align: center; font-size: 22px; margin-bottom: 6px;">Login Admin Jasa Buat Website Batu</h2>
+        <p style="text-align: center; color: var(--mu); font-size: 14px; margin-bottom: 24px;">Masuk untuk mengelola
+          layanan &amp; paket harga Kota Batu</p>
 
         <div id="login-error" class="bw-alert error" style="display: none;">
           <i class="bi bi-x-circle-fill"></i> <span id="login-error-msg">Email atau password salah.</span>
@@ -582,19 +657,22 @@
 
           <label for="login-password">Password</label>
           <div style="position: relative;">
-            <input type="password" id="login-password" placeholder="Masukkan password" required autocomplete="current-password">
-            <button type="button" id="toggle-pwd" style="position: absolute; right: 12px; top: 11px; background: none; border: none; color: var(--mu); cursor: pointer; font-size: 16px;">
+            <input type="password" id="login-password" placeholder="Masukkan password" required
+              autocomplete="current-password">
+            <button type="button" id="toggle-pwd"
+              style="position: absolute; right: 12px; top: 11px; background: none; border: none; color: var(--mu); cursor: pointer; font-size: 16px;">
               <i class="bi bi-eye"></i>
             </button>
           </div>
 
-          <button type="submit" id="btn-login-submit" class="bw-btn bw-or" style="width: 100%; margin-top: 10px;">
+          <button type="submit" id="btn-login-submit" class="bw-btn bw-or" style="width: 100%; margin-top: 14px;">
             <i class="bi bi-box-arrow-in-right"></i> Masuk ke Dashboard
           </button>
         </form>
 
         <div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--ln); text-align: center;">
-          <a href="/" target="_blank" style="font-size: 13px; color: var(--t);"><i class="bi bi-arrow-left"></i> Kembali ke Website Utama</a>
+          <a href="/" target="_blank" style="font-size: 13px; color: var(--t);"><i class="bi bi-arrow-left"></i> Kembali
+            ke Website Utama</a>
         </div>
       </div>
     </section>
@@ -603,7 +681,34 @@
     <!-- VIEW 2: DASHBOARD (Setelah Login Berhasil)      -->
     <!-- ============================================== -->
     <section id="view-dashboard" style="display: none;">
-      
+
+      <!-- Admin Header Bar (Banner Akun & Tombol Logout) -->
+      <div class="admin-header-bar" style="display: flex; justify-content: space-between; align-items: center; background: #fff; border: 1px solid var(--ln); border-radius: 18px; padding: 14px 22px; margin-bottom: 24px; box-shadow: 0 4px 18px rgba(11, 29, 58, 0.04); flex-wrap: wrap; gap: 14px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div style="width: 42px; height: 42px; border-radius: 12px; background: linear-gradient(135deg, var(--o), #ff9d3c); color: #fff; display: grid; place-items: center; font-size: 20px; box-shadow: 0 4px 12px rgba(255, 122, 26, 0.3);">
+            <i class="bi bi-shield-lock-fill"></i>
+          </div>
+          <div>
+            <div style="font-weight: 700; font-size: 16px; color: var(--n); display: flex; align-items: center; gap: 8px;">
+              <span>Panel Admin Jasa Buat Website Batu</span>
+              <span class="bw-badge-admin" style="font-size: 10px;">Kota Batu</span>
+            </div>
+            <div style="font-size: 13px; color: var(--mu); margin-top: 2px;">
+              <i class="bi bi-person-check-fill" style="color: var(--wa);"></i> Login sebagai: <b id="user-email-dash" style="color: var(--n);">admin@jasabuatwebsitebatu.com</b>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <a href="/" target="_blank" class="bw-btn bw-line bw-sm" title="Lihat Website Utama">
+            <i class="bi bi-box-arrow-up-right"></i> Lihat Web
+          </a>
+          <button id="btn-logout-dash" type="button" class="bw-btn bw-danger bw-sm" style="background: #ef4444; color: #fff !important; box-shadow: 0 4px 14px rgba(239, 68, 68, 0.28);">
+            <i class="bi bi-box-arrow-right"></i> Logout
+          </button>
+        </div>
+      </div>
+
       <!-- Stats Overview -->
       <div class="stats-grid">
         <div class="stat-card">
@@ -636,7 +741,8 @@
       </div>
 
       <!-- Quick Action Header -->
-      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 24px;">
+      <div
+        style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 24px;">
         <div class="admin-tabs" style="margin-bottom: 0; border-bottom: 0;">
           <button class="admin-tab active" onclick="switchTab('tab-paket')">
             <i class="bi bi-tag-fill"></i> Paket &amp; Harga (<span id="tab-cnt-paket">0</span>)
@@ -645,16 +751,20 @@
             <i class="bi bi-layers-fill"></i> Layanan UMKM (<span id="tab-cnt-layanan">0</span>)
           </button>
           <button class="admin-tab" onclick="switchTab('tab-config')">
-            <i class="bi bi-sliders"></i> Pengaturan Firebase
+            <i class="bi bi-database-check"></i> Status Database
           </button>
         </div>
 
-        <div style="display: flex; gap: 10px;">
-          <button id="btn-seed-data" class="bw-btn bw-line bw-sm" title="Isi database Firestore dengan paket & layanan bawaan BanyuWeb">
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button id="btn-seed-data" class="bw-btn bw-line bw-sm"
+            title="Isi database Firestore dengan paket & layanan bawaan Jasa Buat Website Batu">
             <i class="bi bi-arrow-repeat"></i> Muat Data Awal (Seed)
           </button>
           <button id="btn-add-item" class="bw-btn bw-or bw-sm">
             <i class="bi bi-plus-lg"></i> Tambah Baru
+          </button>
+          <button onclick="handleLogout()" type="button" class="bw-btn bw-line bw-sm" style="color: #ef4444 !important; border-color: #fecdd3;" title="Keluar dari akun admin">
+            <i class="bi bi-box-arrow-right"></i> Logout
           </button>
         </div>
       </div>
@@ -662,14 +772,17 @@
       <!-- TAB 1: KELOLA PAKET HARGA -->
       <div id="tab-paket" class="tab-content">
         <div id="list-paket-loading" style="text-align: center; padding: 40px; color: var(--mu);">
-          <i class="bi bi-arrow-clockwise" style="font-size: 28px; display: inline-block; animation: spin 1s infinite linear;"></i>
+          <i class="bi bi-arrow-clockwise"
+            style="font-size: 28px; display: inline-block; animation: spin 1s infinite linear;"></i>
           <p style="margin-top: 8px;">Memuat paket harga...</p>
         </div>
         <div id="list-paket-empty" class="bw-card" style="display: none; text-align: center; padding: 50px 20px;">
           <i class="bi bi-inbox" style="font-size: 48px; color: var(--mu);"></i>
           <h3 style="margin: 12px 0 6px;">Belum Ada Paket Harga</h3>
-          <p style="color: var(--mu); margin-bottom: 20px;">Klik tombol "Muat Data Awal" untuk mengisi otomatis dengan 3 paket bawaan.</p>
-          <button onclick="seedInitialData()" class="bw-btn bw-or bw-sm"><i class="bi bi-magic"></i> Isi Data Otomatis</button>
+          <p style="color: var(--mu); margin-bottom: 20px;">Klik tombol "Muat Data Awal" untuk mengisi otomatis dengan 3
+            paket bawaan.</p>
+          <button onclick="seedInitialData()" class="bw-btn bw-or bw-sm"><i class="bi bi-magic"></i> Isi Data
+            Otomatis</button>
         </div>
         <div id="grid-paket" class="items-grid"></div>
       </div>
@@ -677,65 +790,51 @@
       <!-- TAB 2: KELOLA LAYANAN -->
       <div id="tab-layanan" class="tab-content" style="display: none;">
         <div id="list-layanan-loading" style="text-align: center; padding: 40px; color: var(--mu);">
-          <i class="bi bi-arrow-clockwise" style="font-size: 28px; display: inline-block; animation: spin 1s infinite linear;"></i>
+          <i class="bi bi-arrow-clockwise"
+            style="font-size: 28px; display: inline-block; animation: spin 1s infinite linear;"></i>
           <p style="margin-top: 8px;">Memuat daftar layanan...</p>
         </div>
         <div id="list-layanan-empty" class="bw-card" style="display: none; text-align: center; padding: 50px 20px;">
           <i class="bi bi-inbox" style="font-size: 48px; color: var(--mu);"></i>
           <h3 style="margin: 12px 0 6px;">Belum Ada Layanan</h3>
-          <p style="color: var(--mu); margin-bottom: 20px;">Klik tombol "Muat Data Awal" untuk mengisi dengan 4 layanan bawaan.</p>
-          <button onclick="seedInitialData()" class="bw-btn bw-or bw-sm"><i class="bi bi-magic"></i> Isi Data Otomatis</button>
+          <p style="color: var(--mu); margin-bottom: 20px;">Klik tombol "Muat Data Awal" untuk mengisi dengan 4 layanan
+            bawaan.</p>
+          <button onclick="seedInitialData()" class="bw-btn bw-or bw-sm"><i class="bi bi-magic"></i> Isi Data
+            Otomatis</button>
         </div>
         <div id="grid-layanan" class="items-grid"></div>
       </div>
 
-      <!-- TAB 3: PENGATURAN FIREBASE -->
+      <!-- TAB 3: STATUS DATABASE -->
       <div id="tab-config" class="tab-content" style="display: none;">
         <div class="bw-card" style="max-width: 780px;">
-          <h3 style="font-size: 20px; margin-bottom: 8px;"><i class="bi bi-sliders"></i> Konfigurasi Kredensial Firebase</h3>
-          <p style="color: var(--mu); font-size: 14px; margin-bottom: 24px;">Anda dapat memperbarui API Key dan Project ID di sini tanpa perlu mengedit file secara manual.</p>
+          <div style="margin-bottom: 20px;">
+            <h3 style="font-size: 20px; margin-bottom: 6px;"><i class="bi bi-database-check"></i> Status Koneksi Cloud Firestore</h3>
+            <p style="color: var(--mu); font-size: 14px; margin: 0;">Informasi koneksi database Cloud Firestore dan autentikasi admin.</p>
+          </div>
 
-          <form id="form-config" class="bw-form">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div style="background: #f8fafc; border: 1px solid var(--ln); border-radius: 14px; padding: 18px 20px; margin-bottom: 24px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; font-size: 13.5px;">
               <div>
-                <label for="cfg-apiKey">API Key (apiKey)</label>
-                <input type="text" id="cfg-apiKey" placeholder="AIzaSy..." required>
+                <span style="color: var(--mu); display: block; font-size: 12px; font-weight: 600;">PROJECT ID</span>
+                <b id="disp-cfg-projectId">jasawebsitebatu</b>
               </div>
               <div>
-                <label for="cfg-projectId">Project ID (projectId)</label>
-                <input type="text" id="cfg-projectId" placeholder="banyuweb-umkm" required>
+                <span style="color: var(--mu); display: block; font-size: 12px; font-weight: 600;">AUTH DOMAIN</span>
+                <b id="disp-cfg-authDomain">jasawebsitebatu.firebaseapp.com</b>
+              </div>
+              <div>
+                <span style="color: var(--mu); display: block; font-size: 12px; font-weight: 600;">STORAGE BUCKET</span>
+                <b id="disp-cfg-storageBucket">jasawebsitebatu.firebasestorage.app</b>
+              </div>
+              <div>
+                <span style="color: var(--mu); display: block; font-size: 12px; font-weight: 600;">STATUS KONEKSI</span>
+                <span id="disp-cfg-status" class="bw-badge-admin" style="background: #dcfce7; color: #15803d; font-size: 11px;">Aktif (Real-time)</span>
               </div>
             </div>
+          </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-              <div>
-                <label for="cfg-authDomain">Auth Domain</label>
-                <input type="text" id="cfg-authDomain" placeholder="banyuweb-umkm.firebaseapp.com">
-              </div>
-              <div>
-                <label for="cfg-storageBucket">Storage Bucket</label>
-                <input type="text" id="cfg-storageBucket" placeholder="banyuweb-umkm.appspot.com">
-              </div>
-            </div>
-
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-              <div>
-                <label for="cfg-messagingSenderId">Messaging Sender ID</label>
-                <input type="text" id="cfg-messagingSenderId" placeholder="1234567890">
-              </div>
-              <div>
-                <label for="cfg-appId">App ID</label>
-                <input type="text" id="cfg-appId" placeholder="1:1234567890:web:abcdef">
-              </div>
-            </div>
-
-            <div style="display: flex; gap: 12px; margin-top: 14px;">
-              <button type="submit" class="bw-btn bw-or"><i class="bi bi-save"></i> Simpan Konfigurasi</button>
-              <button type="button" onclick="resetConfigToDefault()" class="bw-btn bw-line"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
-            </div>
-          </form>
-
-          <div style="margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--ln);">
+          <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--ln);">
             <h4 style="margin-bottom: 10px;"><i class="bi bi-shield-check"></i> Firestore Security Rules yang Disarankan</h4>
             <p style="color: var(--mu); font-size: 13.5px; margin-bottom: 12px;">Pastikan Anda memasang aturan ini di Firebase Console &gt; Firestore Database &gt; Rules:</p>
             <pre style="background: #0b1d3a; color: #a5f3fc; padding: 16px; border-radius: 12px; font-size: 13px; overflow-x: auto; font-family: monospace;">
@@ -791,11 +890,13 @@ service cloud.firestore {
 
         <label for="paket-fitur">Daftar Fitur (Tulis 1 baris per fitur)</label>
         <div class="form-hint">Setiap baris baru akan otomatis menjadi centang checklist hijau.</div>
-        <textarea id="paket-fitur" placeholder="Website hingga 6 halaman&#10;Blog / artikel untuk SEO&#10;Setup Google Bisnis & Maps&#10;Formulir pesan ke WhatsApp"></textarea>
+        <textarea id="paket-fitur"
+          placeholder="Website hingga 6 halaman&#10;Blog / artikel untuk SEO&#10;Setup Google Bisnis & Maps&#10;Formulir pesan ke WhatsApp"></textarea>
 
         <label for="paket-fitur-minus">Fitur Belum Termasuk (Opsional, 1 baris per fitur)</label>
         <div class="form-hint">Akan dicoret/abu-abu dengan ikon minus.</div>
-        <textarea id="paket-fitur-minus" placeholder="Keranjang & pembayaran online" style="min-height: 60px;"></textarea>
+        <textarea id="paket-fitur-minus" placeholder="Keranjang & pembayaran online"
+          style="min-height: 60px;"></textarea>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: center;">
           <div>
@@ -812,7 +913,8 @@ service cloud.firestore {
 
         <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 20px;">
           <button type="button" onclick="closeModal('modal-paket')" class="bw-btn bw-line bw-sm">Batal</button>
-          <button type="submit" id="btn-save-paket" class="bw-btn bw-or bw-sm"><i class="bi bi-check-lg"></i> Simpan Paket</button>
+          <button type="submit" id="btn-save-paket" class="bw-btn bw-or bw-sm"><i class="bi bi-check-lg"></i> Simpan
+            Paket</button>
         </div>
       </form>
     </div>
@@ -845,22 +947,24 @@ service cloud.firestore {
         </div>
 
         <label for="layanan-lead">Deskripsi Singkat / Lead</label>
-        <textarea id="layanan-lead" placeholder="Etalase digital usaha Anda: siapa Anda, apa yang dijual..." required></textarea>
+        <textarea id="layanan-lead" placeholder="Etalase digital usaha Anda: siapa Anda, apa yang dijual..."
+          required></textarea>
 
         <label for="layanan-fitur">Fitur Layanan (1 baris per poin)</label>
-        <textarea id="layanan-fitur" placeholder="Beranda, Tentang, Layanan/Produk, Galeri, Kontak&#10;Tombol WhatsApp & peta lokasi Google Maps&#10;Tampilan rapi di HP, tablet, dan komputer"></textarea>
+        <textarea id="layanan-fitur"
+          placeholder="Beranda, Tentang, Layanan/Produk, Galeri, Kontak&#10;Tombol WhatsApp & peta lokasi Google Maps&#10;Tampilan rapi di HP, tablet, dan komputer"></textarea>
 
         <label for="layanan-tags">Contoh Usaha Cocok (Pisahkan dengan koma)</label>
-        <input type="text" id="layanan-tags" placeholder="Contoh: Rumah makan, Homestay, Bengkel, Laundry, Salon">
+        <input type="text" id="layanan-tags" placeholder="Contoh: Villa, Homestay, Kafe, Wisata, Oleh-oleh">
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
           <div>
             <label for="layanan-preview-title">Judul Dummy Mockup</label>
-            <input type="text" id="layanan-preview-title" placeholder="Homestay Kampung Ijen">
+            <input type="text" id="layanan-preview-title" placeholder="Villa Songgoriti Batu">
           </div>
           <div>
             <label for="layanan-preview-domain">Domain Dummy</label>
-            <input type="text" id="layanan-preview-domain" placeholder="homestaykampungijen.com">
+            <input type="text" id="layanan-preview-domain" placeholder="villabatusonggoriti.com">
           </div>
         </div>
 
@@ -869,7 +973,8 @@ service cloud.firestore {
 
         <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 20px;">
           <button type="button" onclick="closeModal('modal-layanan')" class="bw-btn bw-line bw-sm">Batal</button>
-          <button type="submit" id="btn-save-layanan" class="bw-btn bw-or bw-sm"><i class="bi bi-check-lg"></i> Simpan Layanan</button>
+          <button type="submit" id="btn-save-layanan" class="bw-btn bw-or bw-sm"><i class="bi bi-check-lg"></i> Simpan
+            Layanan</button>
         </div>
       </form>
     </div>
@@ -879,7 +984,15 @@ service cloud.firestore {
   <div id="toast-box" class="toast-container"></div>
 
   <style>
-    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
   </style>
 
   <!-- Firebase SDK Compat -->
@@ -887,10 +1000,173 @@ service cloud.firestore {
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
-  <!-- Script Konfigurasi & Data Bawaan -->
-  <script src="firebase-config.js"></script>
-
+  <!-- Script Konfigurasi & Data Bawaan (Disatukan Langsung agar 100% Berjalan di Blogger) -->
   <script>
+    /**
+     * ================================================================
+     * KONFIGURASI FIREBASE RESMI (Jasa Buat Website Batu)
+     * Salin dari Firebase Console > Project Settings > Your apps
+     * ================================================================
+     */
+    const BW_DEFAULT_CONFIG = {
+      apiKey: "AIzaSyBDZhr0aTwV67K9RybIW_3HPu1gjebLzAE",
+      authDomain: "jasawebsitebatu.firebaseapp.com",
+      projectId: "jasawebsitebatu",
+      storageBucket: "jasawebsitebatu.firebasestorage.app",
+      messagingSenderId: "971578693790",
+      appId: "1:971578693790:web:bd2a38586018270201c38f",
+      measurementId: "G-PG94W2J32G"
+    };
+
+    function getFirebaseConfig() {
+      return BW_DEFAULT_CONFIG;
+    }
+
+    function initBwFirebase() {
+      const config = getFirebaseConfig();
+      if (!firebase.apps.length) {
+        try {
+          firebase.initializeApp(config);
+        } catch (e) {
+          console.warn("Firebase initialize warning:", e);
+        }
+      }
+      return {
+        auth: typeof firebase.auth === 'function' ? firebase.auth() : null,
+        db: typeof firebase.firestore === 'function' ? firebase.firestore() : null,
+        isConfigured: true
+      };
+    }
+
+    // Data Bawaan / Seed Default untuk Kota Batu
+    const BW_SEED_DATA = {
+      paket_harga: [
+        {
+          nama: "Rintisan",
+          harga: "Rp 1,2 jt",
+          subtext: "mulai dari",
+          deskripsi: "Untuk usaha yang baru mulai tampil online di Kota Batu.",
+          fitur: [
+            "Website 3 halaman (Beranda, Tentang, Kontak)",
+            "Desain sesuai warna & logo usaha",
+            "Tombol WhatsApp & peta Google Maps",
+            "Tampil rapi di HP & komputer",
+            "SEO dasar & revisi 2x"
+          ],
+          fiturMinus: ["Blog / artikel", "Setup Google Bisnis"],
+          isPopular: false,
+          urutan: 1,
+          linkWa: "Halo Jasa Buat Website Batu, saya tertarik Paket Rintisan. Boleh minta penjelasannya?"
+        },
+        {
+          nama: "Bisnis",
+          harga: "Rp 2,5 jt",
+          subtext: "mulai dari",
+          deskripsi: "Paling pas untuk villa, homestay, atau toko yang ingin dipercaya & ramai wisatawan.",
+          fitur: [
+            "Website hingga 6 halaman + galeri",
+            "Blog / artikel untuk SEO",
+            "SEO lokal Kota Batu & Malang Raya",
+            "Setup Google Bisnis & Maps",
+            "Formulir pesan langsung ke WhatsApp",
+            "Revisi 3x & pelatihan 1 jam"
+          ],
+          fiturMinus: [],
+          isPopular: true,
+          urutan: 2,
+          linkWa: "Halo Jasa Buat Website Batu, saya tertarik Paket Bisnis. Boleh minta penjelasannya?"
+        },
+        {
+          nama: "Toko & Katalog",
+          harga: "Rp 4,5 jt",
+          subtext: "mulai dari",
+          deskripsi: "Untuk yang ingin memamerkan banyak produk oleh-oleh atau fasilitas villa.",
+          fitur: [
+            "Katalog hingga 50 produk/kamar + kategori",
+            "Tombol Pesan via WhatsApp per produk",
+            "Pencarian produk & filter",
+            "Tautan marketplace (Shopee/Tokopedia)",
+            "Revisi 3x & pelatihan 2 jam",
+            "Opsi keranjang & pembayaran online (tambahan)"
+          ],
+          fiturMinus: [],
+          isPopular: false,
+          urutan: 3,
+          linkWa: "Halo Jasa Buat Website Batu, saya tertarik Paket Toko & Katalog. Boleh minta penjelasannya?"
+        }
+      ],
+      layanan: [
+        {
+          slugId: "profil-usaha",
+          nama: "Website Profil Usaha",
+          icon: "bi-window-sidebar",
+          lead: "Etalase digital usaha Anda: siapa Anda, apa yang dijual, fasilitas villa/toko, lokasi Google Maps, dan cara memesan. Cocok untuk usaha yang ingin lebih dipercaya pelanggan baru.",
+          fitur: [
+            "Beranda, Tentang, Layanan/Produk, Galeri, Kontak",
+            "Tombol WhatsApp & peta lokasi Google Maps",
+            "Tampilan rapi di HP, tablet, dan komputer",
+            "SEO dasar agar muncul saat orang mencari di Kota Batu"
+          ],
+          tags: ["Villa", "Homestay", "Kafe", "Bengkel", "Wisata"],
+          urutan: 1,
+          previewTitle: "Villa Songgoriti Batu",
+          previewSub: "Menginap nyaman dekat wisata Batu",
+          previewDomain: "villabatusonggoriti.com"
+        },
+        {
+          slugId: "katalog-toko",
+          nama: "Katalog Produk & Toko Online",
+          icon: "bi-shop",
+          lead: "Katalog produk lengkap dengan foto, harga, dan tombol pesan. Pelanggan tinggal klik, pesanan langsung masuk ke WhatsApp Anda — tanpa ribet.",
+          fitur: [
+            "Katalog produk dengan kategori & pencarian",
+            "Tombol Pesan via WhatsApp di setiap produk",
+            "Opsi keranjang & pembayaran online (bila dibutuhkan)",
+            "Tautan ke marketplace (Shopee, Tokopedia) tetap bisa dipasang"
+          ],
+          tags: ["Oleh-oleh", "Keripik Apel", "Sari Apel", "Kopi", "Kerajinan"],
+          urutan: 2,
+          previewTitle: "Oleh-Oleh Apel Batu",
+          previewSub: "Khas Kota Batu, kirim ke seluruh Indonesia",
+          previewDomain: "oleholehapelbatu.com"
+        },
+        {
+          slugId: "landing-promosi",
+          nama: "Landing Page Promosi",
+          icon: "bi-megaphone",
+          lead: "Satu halaman yang dirancang khusus untuk menarik calon pembeli dari iklan Facebook/Instagram/TikTok atau dari kartu nama dan brosur (QR code).",
+          fitur: [
+            "Satu halaman fokus dengan ajakan bertindak yang jelas",
+            "Cepat dibuka, hemat kuota pengunjung",
+            "Cocok untuk promo liburan, paket wisata, atau peluncuran produk",
+            "Bisa dipasang pelacak iklan (Meta Pixel / Google Analytics)"
+          ],
+          tags: ["Promo Liburan", "Paket Wisata", "Petik Apel", "Event Batu"],
+          urutan: 3,
+          previewTitle: "Kopi Lereng Panderman",
+          previewSub: "Promo paket kopi petik merah",
+          previewDomain: "kopilerengpanderman.com/promo"
+        },
+        {
+          slugId: "redesign",
+          nama: "Redesain Website Lama",
+          icon: "bi-arrow-repeat",
+          lead: "Punya website tapi tampilannya ketinggalan zaman, lambat, atau tidak enak dibuka di HP? Kami rapikan tampilan, kecepatan, dan isinya tanpa kehilangan data lama.",
+          fitur: [
+            "Audit singkat: apa yang membuat website sepi pengunjung",
+            "Desain baru yang modern & ramah HP",
+            "Perbaikan kecepatan & struktur agar disukai Google",
+            "Konten lama dipindahkan dengan rapi"
+          ],
+          tags: ["Website jadul", "Lambat", "Tidak responsif"],
+          urutan: 4,
+          previewTitle: "Bengkel Jaya Kota Batu",
+          previewSub: "Servis motor, mobil & derek 24 jam",
+          previewDomain: "bengkeljayabatu.com"
+        }
+      ]
+    };
+
     // State Aplikasi
     let currentAuth = null;
     let currentDb = null;
@@ -910,22 +1186,6 @@ service cloud.firestore {
       currentAuth = fb.auth;
       currentDb = fb.db;
 
-      const banner = document.getElementById("config-warning-banner");
-      if (!fb.isConfigured) {
-        banner.style.display = "flex";
-      } else {
-        banner.style.display = "none";
-      }
-
-      // Load form config values
-      const cfg = getFirebaseConfig();
-      document.getElementById("cfg-apiKey").value = cfg.apiKey || "";
-      document.getElementById("cfg-projectId").value = cfg.projectId || "";
-      document.getElementById("cfg-authDomain").value = cfg.authDomain || "";
-      document.getElementById("cfg-storageBucket").value = cfg.storageBucket || "";
-      document.getElementById("cfg-messagingSenderId").value = cfg.messagingSenderId || "";
-      document.getElementById("cfg-appId").value = cfg.appId || "";
-
       // Pantau status login Firebase
       if (currentAuth) {
         currentAuth.onAuthStateChanged((user) => {
@@ -944,18 +1204,29 @@ service cloud.firestore {
     function showLogin() {
       document.getElementById("view-login").style.display = "block";
       document.getElementById("view-dashboard").style.display = "none";
-      document.getElementById("nav-user-area").style.display = "none";
     }
 
     function showDashboard(user) {
       document.getElementById("view-login").style.display = "none";
       document.getElementById("view-dashboard").style.display = "block";
-      document.getElementById("nav-user-area").style.display = "flex";
-      document.getElementById("user-email").textContent = user.email || "Admin";
+      const emailDash = document.getElementById("user-email-dash");
+      if (emailDash) emailDash.textContent = user.email || "Admin";
 
       // Muat Data Real-time
       listenPaket();
       listenLayanan();
+    }
+
+    function handleLogout() {
+      if (confirm("Apakah Anda yakin ingin keluar (Logout) dari Admin?")) {
+        if (currentAuth) {
+          currentAuth.signOut().then(() => {
+            showToast("Anda telah keluar.", "info");
+          }).catch(err => {
+            showToast("Gagal logout: " + err.message, "error");
+          });
+        }
+      }
     }
 
     function bindEvents() {
@@ -985,9 +1256,18 @@ service cloud.firestore {
         btn.disabled = true;
         btn.innerHTML = '<i class="bi bi-arrow-clockwise" style="animation: spin 1s infinite linear;"></i> Memproses...';
 
+        const cfg = getFirebaseConfig();
+        if (!cfg.apiKey || cfg.apiKey === "ISI_DENGAN_API_KEY_ANDA") {
+          errBox.style.display = "flex";
+          document.getElementById("login-error-msg").innerHTML = "<b>Konfigurasi Firebase Belum Diisi!</b><br>API Key masih berupa teks contoh. Silakan masukkan config asli dari Firebase Console Anda.";
+          btn.disabled = false;
+          btn.innerHTML = '<i class="bi bi-box-arrow-in-right"></i> Masuk ke Dashboard';
+          return;
+        }
+
         if (!currentAuth) {
           errBox.style.display = "flex";
-          document.getElementById("login-error-msg").textContent = "Firebase belum dikonfigurasi. Silakan isi konfigurasi terlebih dahulu.";
+          document.getElementById("login-error-msg").textContent = "Firebase belum berhasil diinisialisasi. Periksa kembali API Key dan Project ID Anda.";
           btn.disabled = false;
           btn.innerHTML = '<i class="bi bi-box-arrow-in-right"></i> Masuk ke Dashboard';
           return;
@@ -1000,13 +1280,19 @@ service cloud.firestore {
           .catch((err) => {
             console.error("Login Error:", err);
             errBox.style.display = "flex";
-            let msg = "Email atau password tidak sesuai.";
-            if (err.code === "auth/invalid-credential" || err.code === "auth/wrong-password") {
+            let msg = "Email atau password tidak sesuai (" + (err.code || err.message) + ").";
+            if (err.code === "auth/unauthorized-domain") {
+              msg = "Domain blog ini belum diizinkan di Firebase! Silakan buka Firebase Console > Authentication > Settings > Authorized domains > Tambahkan domain Blogger Anda (misal: " + window.location.hostname + ").";
+            } else if (err.code === "auth/invalid-credential" || err.code === "auth/wrong-password") {
               msg = "Email atau password yang Anda masukkan salah.";
             } else if (err.code === "auth/user-not-found") {
-              msg = "Akun dengan email ini belum terdaftar di Firebase Auth.";
+              msg = "Akun dengan email ini belum terdaftar di Firebase Authentication.";
+            } else if (err.code === "auth/invalid-api-key" || err.code === "auth/api-key-not-valid") {
+              msg = "API Key Firebase tidak valid. Pastikan Anda memasukkan API Key asli.";
             } else if (err.code === "auth/too-many-requests") {
               msg = "Terlalu banyak percobaan gagal. Silakan tunggu beberapa saat.";
+            } else if (err.code === "auth/network-request-failed") {
+              msg = "Gagal terhubung ke server Firebase. Periksa koneksi internet Anda.";
             }
             document.getElementById("login-error-msg").textContent = msg;
           })
@@ -1017,13 +1303,10 @@ service cloud.firestore {
       });
 
       // Logout
-      document.getElementById("btn-logout").addEventListener("click", () => {
-        if (currentAuth) {
-          currentAuth.signOut().then(() => {
-            showToast("Anda telah keluar.", "info");
-          });
-        }
-      });
+      const btnLogoutDash = document.getElementById("btn-logout-dash");
+      if (btnLogoutDash) btnLogoutDash.addEventListener("click", handleLogout);
+      const btnLogout = document.getElementById("btn-logout");
+      if (btnLogout) btnLogout.addEventListener("click", handleLogout);
 
       // Tombol Tambah Baru
       document.getElementById("btn-add-item").addEventListener("click", () => {
@@ -1039,7 +1322,7 @@ service cloud.firestore {
 
       // Tombol Seed Initial Data
       document.getElementById("btn-seed-data").addEventListener("click", () => {
-        if (confirm("Ingin memuat data awal bawaan BanyuWeb ke Cloud Firestore? Data yang sudah ada tidak akan terhapus, data bawaan akan ditambahkan jika belum ada.")) {
+        if (confirm("Ingin memuat data awal bawaan Jasa Buat Website Batu ke Cloud Firestore? Data yang sudah ada tidak akan terhapus, data bawaan akan ditambahkan jika belum ada.")) {
           seedInitialData();
         }
       });
@@ -1049,9 +1332,6 @@ service cloud.firestore {
 
       // Submit Form Layanan
       document.getElementById("form-layanan").addEventListener("submit", handleSaveLayanan);
-
-      // Submit Form Config
-      document.getElementById("form-config").addEventListener("submit", handleSaveConfig);
     }
 
     // Switch Tabs
@@ -1252,7 +1532,7 @@ service cloud.firestore {
         updatedAt: firebase.firestore.FieldValue.serverTimestamp()
       };
 
-      const prom = id 
+      const prom = id
         ? currentDb.collection("paket_harga").doc(id).update(data)
         : currentDb.collection("paket_harga").add({ ...data, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
 
@@ -1377,29 +1657,6 @@ service cloud.firestore {
       });
     }
 
-    // Simpan Config ke LocalStorage
-    function handleSaveConfig(e) {
-      e.preventDefault();
-      const cfg = {
-        apiKey: document.getElementById("cfg-apiKey").value.trim(),
-        projectId: document.getElementById("cfg-projectId").value.trim(),
-        authDomain: document.getElementById("cfg-authDomain").value.trim(),
-        storageBucket: document.getElementById("cfg-storageBucket").value.trim(),
-        messagingSenderId: document.getElementById("cfg-messagingSenderId").value.trim(),
-        appId: document.getElementById("cfg-appId").value.trim()
-      };
-      localStorage.setItem("bw_firebase_config", JSON.stringify(cfg));
-      showToast("Konfigurasi tersimpan! Halaman dimuat ulang...", "success");
-      setTimeout(() => location.reload(), 1200);
-    }
-
-    function resetConfigToDefault() {
-      if (confirm("Reset konfigurasi ke default?")) {
-        localStorage.removeItem("bw_firebase_config");
-        location.reload();
-      }
-    }
-
     // Utilitas UI
     function showToast(msg, type = "info") {
       const box = document.getElementById("toast-box");
@@ -1426,4 +1683,5 @@ service cloud.firestore {
     }
   </script>
 </body>
+
 </html>

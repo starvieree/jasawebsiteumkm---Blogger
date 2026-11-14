@@ -1,5 +1,5 @@
 /**
- * BanyuWeb - Konfigurasi & Helper Firebase
+ * Jasa Buat Website Batu (jasabuatwebsitebatu) - Konfigurasi & Helper Firebase
  * 
  * PANDUAN PENGISIAN:
  * 1. Buat project di https://console.firebase.google.com/
@@ -8,12 +8,23 @@
  */
 
 const BW_DEFAULT_CONFIG = {
-  apiKey: "ISI_DENGAN_API_KEY_ANDA",
-  authDomain: "banyuweb-umkm.firebaseapp.com",
-  projectId: "banyuweb-umkm",
-  storageBucket: "banyuweb-umkm.appspot.com",
-  messagingSenderId: "1234567890",
-  appId: "1:1234567890:web:abcdef123456"
+  apiKey: "AIzaSyBDZhr0aTwV67K9RybIW_3HPu1gjebLzAE",
+  authDomain: "jasawebsitebatu.firebaseapp.com",
+  projectId: "jasawebsitebatu",
+  storageBucket: "jasawebsitebatu.firebasestorage.app",
+  messagingSenderId: "971578693790",
+  appId: "1:971578693790:web:bd2a38586018270201c38f",
+  measurementId: "G-PG94W2J32G"
+};
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBDZhr0aTwV67K9RybIW_3HPu1gjebLzAE",
+  authDomain: "jasawebsitebatu.firebaseapp.com",
+  projectId: "jasawebsitebatu",
+  storageBucket: "jasawebsitebatu.firebasestorage.app",
+  messagingSenderId: "971578693790",
+  appId: "1:971578693790:web:bd2a38586018270201c38f",
+  measurementId: "G-PG94W2J32G"
 };
 
 // Cek apakah ada config tersimpan di localStorage (bisa diisi via halaman Admin)
@@ -26,7 +37,7 @@ function getFirebaseConfig() {
         return parsed;
       }
     }
-  } catch (e) {}
+  } catch (e) { }
   return BW_DEFAULT_CONFIG;
 }
 
@@ -47,14 +58,14 @@ function initBwFirebase() {
   };
 }
 
-// Data Bawaan / Default jika database masih kosong atau offline
+// Data Bawaan / Seed Default untuk Kota Batu
 const BW_SEED_DATA = {
   paket_harga: [
     {
       nama: "Rintisan",
       harga: "Rp 1,2 jt",
       subtext: "mulai dari",
-      deskripsi: "Untuk usaha yang baru mulai tampil online.",
+      deskripsi: "Untuk usaha yang baru mulai tampil online di Kota Batu.",
       fitur: [
         "Website 3 halaman (Beranda, Tentang, Kontak)",
         "Desain sesuai warna & logo usaha",
@@ -68,17 +79,17 @@ const BW_SEED_DATA = {
       ],
       isPopular: false,
       urutan: 1,
-      linkWa: "Halo BanyuWeb, saya tertarik Paket Rintisan. Boleh minta penjelasannya?"
+      linkWa: "Halo Jasa Buat Website Batu, saya tertarik Paket Rintisan. Boleh minta penjelasannya?"
     },
     {
       nama: "Bisnis",
       harga: "Rp 2,5 jt",
       subtext: "mulai dari",
-      deskripsi: "Paling pas untuk usaha yang ingin dipercaya & ramai dicari.",
+      deskripsi: "Paling pas untuk villa, homestay, atau toko yang ingin dipercaya & ramai wisatawan.",
       fitur: [
         "Website hingga 6 halaman + galeri",
         "Blog / artikel untuk SEO",
-        "SEO lokal Banyuwangi",
+        "SEO lokal Kota Batu & Malang Raya",
         "Setup Google Bisnis & Maps",
         "Formulir pesan langsung ke WhatsApp",
         "Revisi 3x & pelatihan 1 jam"
@@ -86,15 +97,15 @@ const BW_SEED_DATA = {
       fiturMinus: [],
       isPopular: true,
       urutan: 2,
-      linkWa: "Halo BanyuWeb, saya tertarik Paket Bisnis. Boleh minta penjelasannya?"
+      linkWa: "Halo Jasa Buat Website Batu, saya tertarik Paket Bisnis. Boleh minta penjelasannya?"
     },
     {
       nama: "Toko & Katalog",
       harga: "Rp 4,5 jt",
       subtext: "mulai dari",
-      deskripsi: "Untuk yang ingin memamerkan banyak produk.",
+      deskripsi: "Untuk yang ingin memamerkan banyak produk oleh-oleh atau fasilitas villa.",
       fitur: [
-        "Katalog hingga 50 produk + kategori",
+        "Katalog hingga 50 produk/kamar + kategori",
         "Tombol Pesan via WhatsApp per produk",
         "Pencarian produk & filter",
         "Tautan marketplace (Shopee/Tokopedia)",
@@ -104,7 +115,7 @@ const BW_SEED_DATA = {
       fiturMinus: [],
       isPopular: false,
       urutan: 3,
-      linkWa: "Halo BanyuWeb, saya tertarik Paket Toko & Katalog. Boleh minta penjelasannya?"
+      linkWa: "Halo Jasa Buat Website Batu, saya tertarik Paket Toko & Katalog. Boleh minta penjelasannya?"
     }
   ],
   layanan: [
@@ -112,18 +123,18 @@ const BW_SEED_DATA = {
       slugId: "profil-usaha",
       nama: "Website Profil Usaha",
       icon: "bi-window-sidebar",
-      lead: "Etalase digital usaha Anda: siapa Anda, apa yang dijual, di mana lokasinya, dan cara memesan. Cocok untuk usaha yang ingin lebih dipercaya pelanggan baru.",
+      lead: "Etalase digital usaha Anda: siapa Anda, apa yang dijual, fasilitas villa/toko, lokasi Google Maps, dan cara memesan. Cocok untuk usaha yang ingin lebih dipercaya pelanggan baru.",
       fitur: [
         "Beranda, Tentang, Layanan/Produk, Galeri, Kontak",
         "Tombol WhatsApp & peta lokasi Google Maps",
         "Tampilan rapi di HP, tablet, dan komputer",
-        "SEO dasar agar muncul saat orang mencari di Banyuwangi"
+        "SEO dasar agar muncul saat orang mencari di Kota Batu"
       ],
-      tags: ["Rumah makan", "Homestay", "Bengkel", "Laundry", "Salon"],
+      tags: ["Villa", "Homestay", "Kafe", "Bengkel", "Wisata"],
       urutan: 1,
-      previewTitle: "Homestay Kampung Ijen",
-      previewSub: "Menginap nyaman dekat kawah Ijen",
-      previewDomain: "homestaykampungijen.com"
+      previewTitle: "Villa Songgoriti Batu",
+      previewSub: "Menginap nyaman dekat wisata Batu",
+      previewDomain: "villabatusonggoriti.com"
     },
     {
       slugId: "katalog-toko",
@@ -136,28 +147,28 @@ const BW_SEED_DATA = {
         "Opsi keranjang & pembayaran online (bila dibutuhkan)",
         "Tautan ke marketplace (Shopee, Tokopedia) tetap bisa dipasang"
       ],
-      tags: ["Oleh-oleh", "Batik", "Kerajinan", "Kopi", "Hasil laut"],
+      tags: ["Oleh-oleh", "Keripik Apel", "Sari Apel", "Kopi", "Kerajinan"],
       urutan: 2,
-      previewTitle: "Oleh-Oleh Osing",
-      previewSub: "Khas Banyuwangi, kirim ke seluruh Indonesia",
-      previewDomain: "oleholehosing.com"
+      previewTitle: "Oleh-Oleh Apel Batu",
+      previewSub: "Khas Kota Batu, kirim ke seluruh Indonesia",
+      previewDomain: "oleholehapelbatu.com"
     },
     {
       slugId: "landing-promosi",
       nama: "Landing Page Promosi",
       icon: "bi-megaphone",
-      lead: "Satu halaman yang dirancang khusus untuk menarik calon pembeli dari iklan Facebook/Instagram/Google atau dari kartu nama dan brosur (QR code).",
+      lead: "Satu halaman yang dirancang khusus untuk menarik calon pembeli dari iklan Facebook/Instagram/TikTok atau dari kartu nama dan brosur (QR code).",
       fitur: [
         "Satu halaman fokus dengan ajakan bertindak yang jelas",
         "Cepat dibuka, hemat kuota pengunjung",
-        "Cocok untuk promo musiman, kelas, atau peluncuran produk",
+        "Cocok untuk promo liburan, paket wisata, atau peluncuran produk",
         "Bisa dipasang pelacak iklan (Meta Pixel / Google Analytics)"
       ],
-      tags: ["Promo", "Kursus", "Event", "Peluncuran produk"],
+      tags: ["Promo Liburan", "Paket Wisata", "Petik Apel", "Event Batu"],
       urutan: 3,
-      previewTitle: "Kopi Glenmore",
+      previewTitle: "Kopi Lereng Panderman",
       previewSub: "Promo paket kopi petik merah",
-      previewDomain: "kopiglenmore.com/promo"
+      previewDomain: "kopilerengpanderman.com/promo"
     },
     {
       slugId: "redesign",
@@ -172,9 +183,9 @@ const BW_SEED_DATA = {
       ],
       tags: ["Website jadul", "Lambat", "Tidak responsif"],
       urutan: 4,
-      previewTitle: "Ikan Asin Muncar",
-      previewSub: "Segar dari pelabuhan Muncar",
-      previewDomain: "ikanasinmuncar.com"
+      previewTitle: "Bengkel Jaya Kota Batu",
+      previewSub: "Servis motor, mobil & derek 24 jam",
+      previewDomain: "bengkeljayabatu.com"
     }
   ]
 };
